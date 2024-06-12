@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>calculator</title>
+<style>
+ body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: rgb(201, 235, 249);
+}
+
+.calculator {
+    background-color: rgb(16, 173, 235);
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    width: 400px;
+}
+
+.display {
+    background-color: #fff;
+    border-radius: 5px;
+    font-size: 2em;
+    margin-bottom: 10px;
+    padding: 15px;
+    text-align: right;
+}
+
+.buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+.btn {
+    background-color: #b7e0ff;
+    border: none;
+    border-radius: 5px;
+    color: black;
+    font-size: 1.5em;
+    padding: 20px;
+    text-align: center;
+}
+
+.btn:active {
+    background-color: rgb(166, 200, 214);
+}
+</style>
+</head>
+<body>
+    <div class="calculator">
+        <div class="display" id="display">00</div>
+        <div class="buttons">
+            <button class="btn" onclick="press('1')">1</button>
+            <button class="btn" onclick="press('2')">2</button>
+            <button class="btn" onclick="press('3')">3</button>
+            <button class="btn" onclick="press('+')">+</button>
+            <button class="btn" onclick="press('4')">4</button>
+            <button class="btn" onclick="press('5')">5</button>
+            <button class="btn" onclick="press('6')">6</button>
+            <button class="btn" onclick="press('-')">-</button>
+            <button class="btn" onclick="press('7')">7</button>
+            <button class="btn" onclick="press('8')">8</button>
+            <button class="btn" onclick="press('9')">9</button>
+            <button class="btn" onclick="press('*')">*</button>
+            <button class="btn" onclick="press('0')">0</button>
+            <button class="btn" onclick="calculate()">=</button>
+            <button class="btn" onclick="reset()">Reset</button>
+        </div>
+    </div>
+<script>
+    let display = document.getElementById('display');
+    let currentInput = '';
+    let operation = '';
+
+function press(value) {
+    if (value === '+' || value === '-' || value ==='*') {
+        if (currentInput !== '' && !isNaN(currentInput.slice(-1))) {
+            operation = value;
+            currentInput += value;
+            display.textContent = currentInput;
+        }
+    } else {
+        currentInput += value;
+        display.textContent = currentInput;
+    }
+}
+
+function calculate() {
+    try {
+        let result = eval(currentInput);
+        display.textContent = result;
+        currentInput = result.toString();
+        operation = '';
+    } catch {
+        display.textContent = 'Error';
+        currentInput = '';
+        operation = '';
+    }
+}
+function reset() {
+    currentInput = '';
+    display.textContent = '00';
+    operation = '';
+}
+
+</script>
+</body>
+</html>
